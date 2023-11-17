@@ -1,0 +1,51 @@
+import random
+
+# List of words to choose from
+word_list = ["banana", "cherry", "guitar", "python", "coffee", "hockey", "jacket", "wallet"]
+
+# Select a random word from the list
+word_to_guess = random.choice(word_list)
+
+# Set the number of attempts allowed
+max_attempts = 6
+attempts = 0
+
+print("Welcome to the Colored Box Wordle Game!")
+
+while attempts < max_attempts:
+    # Ask the player for a guess
+    guess = input("Enter your 6-character guess: ").lower()
+    
+    if len(guess) != 6:
+        print("Please enter a 6-character word.")
+        continue
+
+    feedback = []
+    
+    for i in range(6):
+        if guess[i] == word_to_guess[i]:
+            feedback.append('green')
+        elif guess[i] in word_to_guess:
+            feedback.append('yellow')
+        else:
+            feedback.append('white')
+
+    # Display the feedback with colored boxes
+    for color in feedback:
+        if color == 'green':
+            print("\033[92m■\033[0m", end=" ")  # Green box
+        elif color == 'yellow':
+            print("\033[93m■\033[0m", end=" ")  # Yellow box
+        else:
+            print("\033[97m■\033[0m", end=" ")  # White box
+
+    print()  # Print a newline for formatting
+
+    if feedback == ['green'] * 6:
+        print("Congratulations! You've guessed the word:", word_to_guess)
+        break
+    else:
+        attempts += 1
+
+if feedback != ['green'] * 6:
+    print("Sorry, you've run out of attempts. The word was:", word_to_guess)
