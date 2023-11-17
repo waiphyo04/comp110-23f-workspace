@@ -87,3 +87,5 @@ class River:
         for x in range(0, 7):
             self.one_river_day()
         return 
+
+print("Wai Phyo")
